@@ -1,0 +1,55 @@
+<div class="">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <h3 class="bg-primary text-white p-3 ">
+        {{ getName() }} Todo List
+      </h3>
+
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" (keyup.enter)="addItem();" [(ngModel)]="todoText" />
+        <button class="btn" (click) = "addItem()" [class]="getBtnClasses()">Add</button>
+      </div>
+      
+      <div class="form-check mb-3">
+        <input type="checkbox" [(ngModel)]="displayAll"  class="form-check-input" name="" id="displayAll"/>
+        <label for="displayAll" class="form-check-label">Hepsini Göster</label>
+      </div>
+      
+
+      <div>
+        {{ complatedTask() }} Task yapıldı
+      </div>
+
+      <div class="alert alert-warning" *ngIf="getItems().length == 0 else itemsTemplate">
+        Tüm Görevler Tamamlandı
+      </div>
+
+
+      <ng-template #itemsTemplate>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of getItems(); let indexOf = index" [class]="{ 'alert-primary': item.action, 'alert-secondary': !item.action}"  >
+              <td>{{indexOf + 1}}</td>
+              <td>{{ item.description }} </td>
+              <td>{{ item.action ? 'Yapıldı' : 'Yapılmadı' }}</td>
+              <td>
+                <input type="checkbox" name="" id="" [(ngModel)]="item.action" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+      </ng-template>
+
+
+
+    </div>
+  </div>
+</div>
